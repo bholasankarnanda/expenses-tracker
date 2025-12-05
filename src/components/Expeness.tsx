@@ -21,6 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import UpdateIcon from "@mui/icons-material/Update";
+import { toast } from "react-toastify";
 
 const Expenses = () => {
   const [title, setTitle] = useState("");
@@ -46,6 +47,7 @@ const Expenses = () => {
           },
         })
       );
+      toast.success("Expense updated successfully!");
       setEditIndex(null);
     } else {
       dispatch(
@@ -54,8 +56,8 @@ const Expenses = () => {
           amount: Number(amount),
         })
       );
+      toast.success("Expense added successfully!");
     }
-
     setTitle("");
     setAmount("");
   };
@@ -152,7 +154,10 @@ const Expenses = () => {
                           edge="end"
                           aria-label="delete"
                           color="error"
-                          onClick={() => dispatch(deleteExpense(idx))}
+                          onClick={() => {
+                            dispatch(deleteExpense(idx));
+                            toast.error("Expense deleted!");
+                          }}
                         >
                           <DeleteIcon />
                         </IconButton>
